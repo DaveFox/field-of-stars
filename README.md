@@ -1,10 +1,10 @@
 # field-of-stars
 
-##Requirements
+## Requirements
 Node 10.13.0
 
-##Installation
+## Installation
 In a terminal: `npm install`
 
-##Running
+## Running
 In a terminal: `npm start`
