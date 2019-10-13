@@ -1,0 +1,28 @@
+#title {
+  margin: auto;
+  min-width: 100%;
+  text-align: center;
+}
+
+.btn-list {
+  padding-top: 30px;
+  display: block;
+  width: 50%;
+  margin: auto;
+}
+
+button {
+  width: 100%;
+  min-width: 200px;
+  height: 50px;
+  margin: auto;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+footer {
+ bottom: 5px;
+ position: absolute;
+ font-style: italic;
+ color: firebrick;
+}
