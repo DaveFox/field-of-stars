@@ -7,22 +7,11 @@ let selectedStar = {};
 let validState = false;
 
 function main() {
-  document.addEventListener('main-start', hideMenuShowCanvas);
-}
-
-function hideMenuShowCanvas() {
-  const menu = document.getElementById('start'); //button list eventually
-  const canvas = document.getElementById('game-screen');
-
-  menu.style.display = 'none';
-  canvas.style.display = 'block';
-
-  setupCanvas(canvas);
-  initaliseStars(canvas);
+  hideMenuShowCanvas();
 
   setInterval(() => {
     draw();
-  }, 100)
+  }, 100);
 
   //tick up
   setInterval(() => {
@@ -34,7 +23,16 @@ function hideMenuShowCanvas() {
       }
     }
     validState = false;
-  }, 2000)
+  }, 2000);
+}
+
+function hideMenuShowCanvas() {
+  const canvas = document.getElementById('game-screen');
+
+  canvas.style.display = 'block';
+
+  setupCanvas(canvas);
+  initaliseStars(canvas);
 }
 
 function setupCanvas(canvas) {
@@ -156,6 +154,7 @@ function canvasSelection(e) {
         } else if(e.which === 3) {
           removeMoveLine();
           drawPathBetweenStars(selectedStar, starsList[i], c, 'moveline');
+          moveFleet(selectedStar, starsList[i], c);
           validState = false;
           return;
         }
@@ -219,6 +218,24 @@ function hideStarInfo(star) {
   const systemMenu = document.getElementById('system-menu');
 
   systemMenu.style.display = 'none';
+}
+
+function moveFleet(originStar, targetStar, context) {
+  if(targetStar.owned) {
+    targetStar.fleets += originStar.fleets;
+    originStar.fleets = 0;
+    return;
+  }
+
+  if (originStar.fleets > targetStar.fleets) {
+    originStar.fleets -= targetStar.fleets;
+    targetStar.owned = true;
+    targetStar.econ < 1 ? targetStar.econ = 1 : null;
+    addPlayerOwnedDrawToStar(targetStar, context);
+  } else {
+    targetStar.fleets -= originStar.fleets;
+    originStar.fleets = 0;
+  }
 }
 
 function drawPathBetweenStars(star1, star2, context, specialName) {
